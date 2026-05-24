@@ -2,10 +2,15 @@ import telebot
 from telebot import types
 import sqlite3
 import threading
+import os  # Server muhitini o'qish uchun kutubxona qo'shildi
 
-# ⚠️ BOT TOKENINGIZNI SHU YERGA YOZING
-BOT_TOKEN = "BOT_TOKENINI_SHU_YERGA_YOZING"
+# 🌐 Tokenni server Environment Variables (muhit o'zgaruvchilari) dan oladi
+BOT_TOKEN = os.getenv("BOT_TOKEN")
 CHIEF_ADMIN_ID = 7180864511  # Sizning Telegram ID raqamingiz muvaffaqiyatli biriktirildi
+
+# Serverda token kiritilmagan bo'lsa xabar beradi
+if not BOT_TOKEN:
+    raise ValueError("Xatolik: Serverda 'BOT_TOKEN' topilmadi! Environment Variables qismini tekshiring.")
 
 bot = telebot.TeleBot(BOT_TOKEN)
 lock = threading.Lock()
